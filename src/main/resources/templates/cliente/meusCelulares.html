@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	<script th:src="@{/layout/jquery/jquery-3.2.0.js}"></script>
+	<meta charset="UTF-8"/>
+	
+<title>Meus Celulares</title>
+	
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+			var id = $("#id").html();
+			if(id == null){
+
+				$("#messagePanel").removeAttr("hidden");
+				$("#message").html("Você não possui celular cadastrado no momento!");
+			}
+		});
+
+		
+	</script>		
+		
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+			$("#remove").click(function(){
+
+				var id = $("#id").html();
+				
+				$.ajax({
+					type: 'POST',
+					url: '/cliente/removerCelular',
+					data:{'id': id},
+					success: function(data){
+
+						
+						$("#message").html("Celular removido!"+data);
+					}
+
+				});
+
+			});
+		});
+	
+
+	</script>
+	
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		
+		<div class="col-sm-9 col-md-10">
+			<h1><span th:text="${session.usuario.nome}"></span></h1>
+		</div>
+		<div class="row"></div>
+			
+			<div id="messagePanel" hidden="true" class="alert alert-warning alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong><span id="message" th:text="${messagem}"></span></strong>
+			</div>
+			
+			<div class="row"></div>
+			
+			<div style="padding-left: 2%;padding-right: 2%;" class="table-responsive">
+				<div  class="panel panel-default">
+				  <!-- Default panel contents -->
+				 	 <div class="panel-heading"><h3>Celulares Cadastrados</h3></div>
+				  	<div class="panel-body">
+				  </div>
+				 
+				  <div th:if="${cliente.celulares != null}">
+				  <!-- Table -->
+				  <table class="table">
+				   <thead>
+							<tr>
+								<th data-priority="1">Cor</th>
+								<th data-priority="2">Marca</th>
+								<th data-priority="3">Modelo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="celular : ${cliente.celulares}">
+	
+								<td th:text="${celular.cor}"></td>
+								<td th:if="${celular.marcaModelo != null}" ><span th:text="${celular.marcaModelo.marca}"></span></td>
+								<td th:if="${celular.marcaModelo != null}" ><span th:text="${celular.marcaModelo.modelo}"></span></td>
+								<td><button title="REMOVER" id="remove" class="btn btn-danger btn-xs"><label class="glyphicon glyphicon-trash"></label></button></td>
+								
+							</tr>
+						</tbody>
+				  </table>
+				  </div>
+				</div>
+			</div>
+		
+			<!--     Bloco 2 de informações       -->
+			
+		
+			<div class="row"></div>
+				<div style="padding-left: 2%;padding-right: 2%;" class="table-responsive">
+				
+					<div class="panel panel-default">
+					
+						<div class="panel-heading" >
+							<h3>Alertas de Manutenção</h3>
+						</div>
+					
+						<div  class="panel-body" th:each="celular : ${cliente.celulares}">
+							<div>
+								<label th:text="${celular.MarcaModelo.modelo}"><button><label class="glyphicon glyphicon-calendar"></label>Agendar visita</button></label>
+							</div>
+
+							
+							<div class="panel-body">
+								
+							</div>
+						</div>
+					</div>
+					
+				</div>
+		
+	</section>
+</body>
+</html>

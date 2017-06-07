@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/navbar">
+	
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{jquery/jquery-ui.min.js}"></script>
+	<meta charset="UTF-8"/>
+	<title>Novo Cliente</title>
+	<style type="text/css">
+	
+	.divAlert{
+		border-left:10px solid red;
+		padding:10px;
+		margin-bottom: 5px;
+	}
+	</style>
+	
+	
+</head>
+<body>
+
+	<section layout:fragment="conteudo">
+
+
+	<div class="container" style="padding-top: 5%;">
+	
+	
+	<div th:if="${cpfValido} == false" >
+		<div class="divAlert"> Você digitou um CPF invalido!</div>
+	</div>
+	
+	
+	<h1>Novo Cliente <span class="glyphicon glyphicon-plus"></span></h1>
+	<div class="">
+		<form th:action="@{/cliente/novo}" th:object="${cliente}" method="post">
+			
+			<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<th:block th:each="error : ${#fields.detailedErrors()}">
+					<div>
+						<i class="fa  fa-exclamation-circle"></i>
+						<span th:text="${error.message}"></span>
+					</div>
+				</th:block>
+			</div>
+			
+			<div class="form-group">
+				<label >Nome:</label>
+				<input class="form-control" type="text" th:field="*{nome}"/>
+			</div>
+			<div class="form-group">
+				<label >CPF:</label>
+				<input class="form-control" type="text" th:field="*{id}"/>
+			</div>
+			<div class="form-group">
+				<label >Sexo:</label>
+				<input class="form-control" type="text" th:field="*{sexo}"/>
+			</div>
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input class="form-control" type="text" th:field="*{email}"/>
+			</div>
+			<div class="form-group">
+				<label >Data de Nascimento:</label>
+				<input class="form-control" type="text" th:field="*{dataNascimento}"/>
+			</div>
+			<div class="form-group">
+				<label >Telefone:</label>
+				<input class="form-control" type="text" th:field="*{telefone}"/>
+			</div>
+			
+			<input class="btn btn-primary" type="submit" value="Cadastrar" />
+		</form>
+	</div>
+	
+	</div>
+	</section>
+</body>
+</html>

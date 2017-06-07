@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+<head>
+	<title>Cadastro de visita</title>
+	<meta charset="UTF-8"/>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	<script th:src="@{/layout/jquery/jquery-3.2.0.js}"></script>
+	
+
+</head>
+<body>
+	<section layout:fragment="conteudo">
+	
+	<div class="col-sm-9 col-md-10">
+			
+	</div>
+	<div class="row"></div>
+	
+	<div class="col-sm-9 col-md-10">
+	
+	</div>
+	<div class="row"></div>
+	
+	<div class="col-sm-9 col-md-10">
+		<h1>Cadastrar uma visita</h1>
+	</div>
+	<div class="row"></div>
+	
+	<div class="col-sm-9 col-md-10">
+		<form  th:action="@{novoServico}" th:object="${servico}" method="post">
+			<div>
+				
+				<div class="form-group">
+					<label>Data de visita:</label>
+					<input class="form-control" type="text"  th:field="*{dataRequerimento}"/>
+				</div>
+				
+				<div class="form-group"  th:if="${servico.descricao == null}">
+					<label>Descrição resumida do problema:</label>
+					<input  class="form-control" type="text"  th:field="*{descricao}"/>
+				</div>
+				
+				<div class="form-group"  th:if="${servico.descricao != null}">
+					<label>Descrição resumida do problema:</label>
+					<input  class="form-control" type="text" th:field="*{descricao}"/>
+				</div>
+				
+				<div class="form-group"  th:if="${celulares != null}">
+					<div><label>Celular:</label></div>
+					<select class="form-control"  th:field="*{celular.id}">
+						<option th:each="v : ${celulares}" th:value="${v.id}" th:text="${v.id}"></option>
+					</select>
+				</div>
+			
+				<div class="form-group"  th:if="${lojas != null}">
+					<div><label>Loja:</label></div>
+					<select class="form-control" th:field="*{loja.id}">
+						<option th:each="o : ${lojas}" th:value="${o.id}" th:text="${o.id}"></option>
+					</select>
+				</div>
+
+				<div class="form-group"> 
+					<input class="btn btn-primary" type="submit" value="Marcar"/>
+				</div>
+				
+			</div>
+		
+		</form>
+	</div>
+	</section>
+</body>
+</html>
