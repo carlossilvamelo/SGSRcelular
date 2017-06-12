@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/LayoutPadraoOficina">
+	layout:decorator="layout/LayoutPadraoLoja">
 <head>
 	<title>Cadastrar serviço</title>
 	<meta charset="UTF-8"/>
@@ -76,7 +76,7 @@
 	<div class="row"></div>
 	
 	<div class="col-sm-9 col-md-10">
-		<form  th:action="@{novoServicoOficina}" th:object="${servico}" method="post">
+		<form  th:action="@{novoServicoLoja}" th:object="${servico}" method="post">
 			<div>
 			
 				<div class="form-group">
@@ -94,27 +94,13 @@
 					<input  class="form-control" type="text"  th:field="*{descricao}"/>
 				</div>
 				
-				<div class="row">
-					<div class="form-group">
-							<div class="col-xs-6 col-md-4">
-								<label>Chassi:</label>
-									<input class="form-control" type="text"  th:field="*{veiculo.numeroChassi}"/>
-								</div>
-									
-							<div class="col-xs-6 col-md-4">
-								<label>Placa*:</label>
-								<input class="form-control" type="text"  th:field="*{veiculo.placa}"/>
-							</div>
-					</div>
-				</div>
-				
 				<div class="row">&nbsp;</div>
 				
 				<div class="row">
 					<div class="form-group">
 						<div class="col-xs-6 col-md-4">
 							<div><label>Marca*:</label></div>
-							<select class="form-control" id="marca" th:field="*{veiculo.marcaModelo.marca}">
+							<select class="form-control" id="marca" th:field="*{celular.marcaModelo.marca}">
 								<option value="">Selecione a marca do veículo</option>
 								<option th:each="marca : ${marcas}" th:value="${marca}" th:text="${marca}"></option>
 							</select>
@@ -122,7 +108,7 @@
 						
 						<div class="col-xs-6 col-md-4">
 							<div><label>Modelo*:</label></div>
-							<select class="form-control" id="modelo" th:field="*{veiculo.marcaModelo.modelo}">
+							<select class="form-control" id="modelo" th:field="*{celular.marcaModelo.modelo}">
 							</select>
 						</div>
 					
@@ -133,8 +119,8 @@
 					<div  class="form-group">
 						<div class="col-xs-6 col-md-4">
 							<div><label>Cor:</label></div>
-							<select class="form-control" th:field="*{veiculo.cor}">
-								<option value="">Selecione uma cor</option>
+							<select class="form-control" th:field="*{celular.cor}">
+								<option value="">Cor: </option>
 								<option th:each="cor : ${cores}" th:value="${cor}" th:text="#{|enumCores.${cor}|}"></option>
 							</select>
 						</div>

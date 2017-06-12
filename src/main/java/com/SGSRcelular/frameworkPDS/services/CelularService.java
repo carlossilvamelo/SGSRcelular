@@ -31,6 +31,7 @@ public class CelularService implements ICelularService{
 	public Celular buscarPorId(Integer id) {
 		return celularRepository.findOne(id);
 	}
+	
 	@Override
 	public void deletarTodos(Celular produto) {
 		

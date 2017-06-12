@@ -24,7 +24,7 @@
 	  <div class="container-fluid">
 
 	    <div class="navbar-header">
-	      <a th:href="@{~/oficina}" class="navbar-brand  hidden-xs">
+	      <a th:href="@{~/loja}" class="navbar-brand  hidden-xs">
 	        <span>Monitor PhoneHelp</span>
 	      </a>
 
@@ -87,21 +87,21 @@
 	      		<ul class="aw-menu__list">
 	        		
 					<li class="aw-menu__item">
-          				<a th:href="@{~/oficina/novoCliente(id=${session.usuario.id})}">
+          				<a th:href="@{~/loja/novoCliente(id=${session.usuario.id})}">
           					<i class="fa  fa-fw  fa-plus-circle"></i>
           					<span>Cadastrar cliente</span>
           				</a>
 	        		</li>
 					
 					<li class="aw-menu__item">
-	          			<a th:href="@{../servico/novoServicoOficina(id=${session.usuario.id})}">
+	          			<a th:href="@{../servico/novoServicoLoja(id=${session.usuario.id})}">
 	          				<i class="fa  fa-fw  fa-plus-circle"></i>
 	          				<span>Cadastrar serviço</span>
 	          			</a>
 	        		</li>
 	        		
 	        		<li class="aw-menu__item">
-          			<a th:href="@{~/oficina/novoVeiculo(id=${session.usuario.id})}">
+          			<a th:href="@{~/loja/novoCelular(id=${session.usuario.id})}">
           				<i class="fa  fa-fw  fa-plus-circle"></i>
           				<span>Cadastrar veículo</span>
           			</a>

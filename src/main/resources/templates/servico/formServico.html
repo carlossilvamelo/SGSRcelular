@@ -53,7 +53,7 @@
 				<div class="form-group"  th:if="${celulares != null}">
 					<div><label>Celular:</label></div>
 					<select class="form-control"  th:field="*{celular.id}">
-						<option th:each="v : ${celulares}" th:value="${v.id}" th:text="${v.id}"></option>
+						<option th:each="v : ${celulares}" th:value="${v.id}" th:text="${v.marcaModelo.modelo}"></option>
 					</select>
 				</div>
 			

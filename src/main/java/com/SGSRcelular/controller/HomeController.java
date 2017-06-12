@@ -100,13 +100,13 @@ public class HomeController {
 			mv = new ModelAndView("redirect:cliente");
 		}
 		else{
-			Loja oficina = lojaService.buscarPorId(login);
+			Loja loja = lojaService.buscarPorId(login);
 			
-			if(oficina != null){
-				attributes.addFlashAttribute("message","Bem Vindo " + oficina.getNome());
-				attributes.addFlashAttribute("oficina", oficina);
-				session.setAttribute("usuario", oficina);
-				mv = new ModelAndView("redirect:oficina");
+			if(loja != null){
+				attributes.addFlashAttribute("message","Bem Vindo " + loja.getNome());
+				attributes.addFlashAttribute("loja", loja);
+				session.setAttribute("usuario", loja);
+				mv = new ModelAndView("redirect:loja");
 			}
 			
 			else{

@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/layoutPadraoOficina">
+	layout:decorator="layout/layoutPadraoLoja">
 <head>
 	<meta charset="UTF-8"/>
 	<title>Adicionar Veículo</title>
@@ -18,7 +18,7 @@
 			    if(search != "Selecione a marca do veículo" ){
 					    $.ajax({
 			
-							url: '/oficina/listarModelos',
+							url: '/loja/listarModelos',
 							data:{'marca': search},
 							success: function(data){
 								$("#modelo").html("");
@@ -56,7 +56,7 @@
 	
 	<div class="col-sm-9 col-md-10">
 		
-		<form th:action="@{/oficina/novoCliente}" th:object="${cliente}" method="post">
+		<form th:action="@{/loja/novoCliente}" th:object="${cliente}" method="post">
 			
 			<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

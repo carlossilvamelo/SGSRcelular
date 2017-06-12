@@ -2,10 +2,10 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/layoutPadraoOficina">
+	layout:decorator="layout/layoutPadraoLoja">
 <head>
 	<meta charset="UTF-8"/>
-	<title>Adicionar Veículo</title>
+	<title>Adicionar Celular</title>
 	
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
 	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
@@ -19,7 +19,7 @@
 			    if(search != "Selecione a marca do veículo" ){
 					    $.ajax({
 			
-							url: '/oficina/listarModelos',
+							url: '/loja/listarModelos',
 							data:{'marca': search},
 							success: function(data){
 								$("#modelo").html("");
@@ -50,56 +50,48 @@
 	<section layout:fragment="conteudo">
 	
 	<div class="col-sm-9 col-md-10">
-		<h1>Cadastro de veículo</h1>
+		<h1>Cadastro de celular</h1>
 	</div>
 	
 	<div class="row"></div>
 	
 	<div class="col-sm-9 col-md-10">
 		
-		<form  th:action="@{/oficina/novoVeiculo}" th:object="${veiculo}" method="post">
+		<form  th:action="@{/loja/novoCelular}" th:object="${celular}" method="post">
 			<div>
+			
+				<div class="form-group"  th:if="${clientes != null}">
+					<div><label>Cliente:</label></div>
+					<select class="form-control" th:field="*{cliente.id}">
+						<option th:each="o : ${clientes}" th:value="${o.id}" th:text="${o.id}"></option>
+					</select>
+				</div>
 				
 				<div class="form-group">
-					<div>Chassi e Placa:</div>
-					<input class="form-control" type="text"  th:field="*{numeroChassi}"/>
-								
-					<input class="form-control" type="text"  th:field="*{placa}"/>
+					<div><span>Marca:</span></div>
+					<select class="form-control" id="marca" th:field="*{marcaModelo.marca}">
+						<option value="">Selecione a marca do veículo</option>
+						<option th:each="marca : ${marcas}" th:value="${marca}" th:text="${marca}"></option>
+					</select>
 				</div>
-			
+				
+				<div class="form-group">
+					<div><span>Modelo:</span></div>
+					<select class="form-control" id="modelo" th:field="*{marcaModelo.modelo}">
+					</select>
+					
+				</div>
+				
 				<div  class="form-group">
 					<div><span>Cor:</span></div>
 					<select class="form-control" th:field="*{cor}">
 						<option value="">Selecione uma cor</option>
 						<option th:each="cor : ${cores}" th:value="${cor}" th:text="#{|enumCores.${cor}|}"></option>
 					</select>
-					
-				</div>
-				
-					<div class="form-group">
-					<div><span>Marca:</span></div>
-					<select class="form-control" id="marca" th:field="*{marcaModelo.marca}">
-						<option value="">Selecione a marca do veículo</option>
-						<option th:each="marca : ${marcas}" th:value="${marca}" th:text="${marca}"></option>
-					</select>
-					
-				</div>
-				
-					<div class="form-group">
-					<div><span>Modelo:</span></div>
-					<select class="form-control" id="modelo" th:field="*{marcaModelo.modelo}">
-					</select>
-					
-				</div>
-			
-			
-				<div class="form-group">
-					<div><span>Ano de fabricação:</span></div>
-					<input  class="form-control" type="text"  th:field="*{ano}"/>
 				</div>
 				
 				<div>
-					<input class="btn btn-primary" type="submit" value="Cadastrar Veículo"/>
+					<input class="btn btn-primary" type="submit" value="Cadastrar celular"/>
 				</div>
 				
 			</div>

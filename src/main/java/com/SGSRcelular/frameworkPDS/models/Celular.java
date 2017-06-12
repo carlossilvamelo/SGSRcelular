@@ -65,8 +65,4 @@ public class Celular implements Serializable{
 		this.cor = cor;
 	}
 	
-
-
-	
-	
 }
