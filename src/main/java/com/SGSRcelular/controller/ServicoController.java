@@ -25,6 +25,7 @@ import com.SGSRcelular.frameworkPDS.models.Servico;
 import com.SGSRcelular.frameworkPDS.services.CelularService;
 import com.SGSRcelular.frameworkPDS.services.ClienteService;
 import com.SGSRcelular.frameworkPDS.services.LojaService;
+import com.SGSRcelular.frameworkPDS.services.MarcaModeloService;
 import com.SGSRcelular.frameworkPDS.services.ServicoService;
 
 
@@ -41,6 +42,8 @@ public class ServicoController {
 	private ServicoService servicoService;
 	@Autowired
 	private CelularService celularService;
+	@Autowired
+	private MarcaModeloService marcaModeloService;
 
 	@GetMapping("/novoServico")
 	public ModelAndView formServico(@RequestParam(name="id", required=true) String id, HttpSession session, String descricao){
@@ -118,29 +121,38 @@ public class ServicoController {
 		Loja tmp = (Loja) session.getAttribute("usuario");
 		Loja loja = (Loja) lojaService.buscarPorId(tmp.getId());
 
-		//servico.setStatus(EnumStatus.PRE_DIAGNOSTICO);
+		servico.setStatus(EnumStatus.PRE_DIAGNOSTICO);
 		servico.setLoja(loja);
 		
 		Cliente cliente = (Cliente) clienteService.buscarPorId(servico.getCliente().getId());
 		
 		if(cliente == null){
 			attributes.addAttribute("message", "Cliente não cadastrado.");
-			System.out.println("o cliente não está cadastrado");
+			System.out.println("O cliente não está cadastrado");
 			return mv;
 		}
 		else{
 			Celular celularAtual = null;
-			//List<Veiculo> veiculos = cliente.getVeiculo();
-			/*for (int i = 0; i < veiculos.size(); i++) {
-				if(veiculos.get(i).getPlaca().equals(servico.getVeiculo().getPlaca())){
-					veiculoAtual = veiculoService.buscarPorId(veiculos.get(i).getNumeroChassi());
+			
+			List<Celular> celulares = cliente.getCelulares();
+			for (int i = 0; i < celulares.size(); i++) {
+				if(celulares.get(i).getMarcaModelo().getId().equals(servico.getCelular().getId())
+						&&  celulares.get(i).getCor().equals(servico.getCelular().getCor())){
+					celularAtual = celularService.buscarPorId(celulares.get(i).getId());
 				}
-			}*/
+			}
 			
 			if(celularAtual == null){
-				attributes.addFlashAttribute("message", "Carro não cadastrado.");
-				System.out.println("o carro não está cadastrado");
-				return mv;
+				celularAtual = new Celular();
+				celularAtual.setMarcaModelo(marcaModeloService.buscarPorMarcaModelo(servico.getCelular().getMarcaModelo().getMarca(),
+						servico.getCelular().getMarcaModelo().getModelo()));
+				celularAtual.setCor(servico.getCelular().getCor());
+				celularAtual.setCliente(cliente);
+				
+				cliente.addCelular(celularAtual);
+				
+				celularService.inserir(celularAtual);
+				System.out.println("Cliente não tinha celular. Adicionando celular a cliente.");
 			}
 			
 			servico.setCliente(cliente);
@@ -149,14 +161,6 @@ public class ServicoController {
 			cliente.addServico(servico);
 			servicoService.inserir(servico);
 		}
-		
-		
-		/*System.out.println("Veiculo: " + servico.getVeiculo().getNumeroChassi());
-		cliente.addServico(servico);
-		servico.setResponsavel(cliente);
-
-		servicoService.inserir(servico);
-		attributes.addAttribute("message", "Nova visita marcada!");*/
 
 		return mv;
 
@@ -257,8 +261,6 @@ public class ServicoController {
 		Servico servico =  servicoService.buscarPorId(id);
 		List<CheckIn> lista = null;
 		
-		
-		
 		if(servico != null){
 			
 			lista = servico.getAcompanhamento().getCheckIns();
@@ -276,7 +278,6 @@ public class ServicoController {
 		
 		return mv;
 	}
-	
 	
 	@GetMapping("/finalizar")
 	public ModelAndView finalizarServico(@RequestParam(name="id", required=true) Integer id, RedirectAttributes attributes){

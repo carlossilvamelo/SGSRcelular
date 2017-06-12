@@ -17,8 +17,6 @@ public abstract class StatusServico{
 	private String nomeStatus;
 	private ArrayList<String> nomesAcoesParaProximoStatus;
 	
-	
-	
 	public abstract StatusServico proximo();
 	public abstract <T> T getInstancia();
 	public abstract void executar(Consumer<ServicoService> metodo);

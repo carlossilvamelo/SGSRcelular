@@ -122,7 +122,7 @@ public class ClienteController {
 		cliente.addCelular(celular);
 		System.out.println(celular.getId());
 		clienteService.inserir(cliente);
-		mv.addObject("message", "Veículo adicionado!");
+		mv.addObject("message", "Celular adicionado!");
 		
 		return mv;
 	}

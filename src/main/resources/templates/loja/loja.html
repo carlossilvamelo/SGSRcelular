@@ -49,7 +49,7 @@
                   
                   <th>Data</th>
                   <th>Cliente</th>
-                  <th>Veículo</th>
+                  <th>Aparelho</th>
                   <th>Descrição</th>
            		  <th>Status</th>
                   <th>Ações</th>
@@ -62,9 +62,9 @@
                 
                   <td th:text="${lista.dataRequerimento}"></td>
                   <td th:text="${lista.cliente.nome}"></td>
-                  <td th:text="${lista.veiculo.placa}"></td>
+                  <td th:text="${lista.celular.marcaModelo.marca}"></td>
                   <td th:text="${lista.descricao}" ></td>
-                  <td th:text="#{|enumStatus.${lista.status}|}"></td>
+                  <td th:text="${lista.status}"></td>
                   
                   <td>
 	                  <div  th:if="${lista.status.name() == 'PRE_DIAGNOSTICO'}">	
