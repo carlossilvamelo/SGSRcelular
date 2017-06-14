@@ -1,6 +1,8 @@
 package com.SGSRcelular.controller;
 
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,11 +23,13 @@ import com.SGSRcelular.frameworkPDS.models.Celular;
 import com.SGSRcelular.frameworkPDS.models.CheckIn;
 import com.SGSRcelular.frameworkPDS.models.Cliente;
 import com.SGSRcelular.frameworkPDS.models.Loja;
+import com.SGSRcelular.frameworkPDS.models.Pagamentos;
 import com.SGSRcelular.frameworkPDS.models.Servico;
 import com.SGSRcelular.frameworkPDS.services.CelularService;
 import com.SGSRcelular.frameworkPDS.services.ClienteService;
 import com.SGSRcelular.frameworkPDS.services.LojaService;
 import com.SGSRcelular.frameworkPDS.services.MarcaModeloService;
+import com.SGSRcelular.frameworkPDS.services.PagamentosService;
 import com.SGSRcelular.frameworkPDS.services.ServicoService;
 
 
@@ -44,7 +48,9 @@ public class ServicoController {
 	private CelularService celularService;
 	@Autowired
 	private MarcaModeloService marcaModeloService;
-
+	@Autowired
+	private PagamentosService pagamentosService;
+	
 	@GetMapping("/novoServico")
 	public ModelAndView formServico(@RequestParam(name="id", required=true) String id, HttpSession session, String descricao){
 
@@ -116,6 +122,48 @@ public class ServicoController {
 		
 		return mv;
 	}
+	
+	@GetMapping("/realizarPagamento")
+	public ModelAndView realizarPagamentoForm(@RequestParam(name="id", required=true) Integer id){
+		
+		ModelAndView mv = new ModelAndView("pagamentos/boleto");
+		Servico servico = servicoService.buscarPorId(id);
+		Calendar dataDocumento = new GregorianCalendar();
+		mv.addObject("dataDocumento", dataDocumento);
+		mv.addObject("servico", servico);
+		return mv;
+		
+	}
+	
+	@GetMapping("/visualizarPagamento")
+	public ModelAndView mostrarInfoPagamentoForm(@RequestParam(name="id", required=true) Integer id){
+		
+		ModelAndView mv = new ModelAndView("pagamentos/relatorioPagamento");
+		Servico servico = servicoService.buscarPorId(id);
+		
+		mv.addObject("servico", servico);
+		
+		return mv;
+		
+	}
+	
+	@GetMapping("/processar")
+	public ModelAndView realizarPagamento(@RequestParam(name="id", required=true) Integer id){
+		Servico servico = servicoService.buscarPorId(id);
+		System.err.println("pagamento boleto");
+		servico.getOrcamento().setPago(true);
+		ModelAndView mv = new ModelAndView("redirect:/cliente");
+
+		Pagamentos pagamento = new Pagamentos();
+		pagamentosService.processarPagamentoBoleto(pagamento,servico);
+		
+		servicoService.inserir(servico);
+		mv.addObject("servico", servico);
+		return mv;
+		
+	}
+	
+	
 	
 	@PostMapping("/novoServicoLoja")
 	public ModelAndView cadastrarServicoLoja(Servico servico, HttpSession session, RedirectAttributes attributes){

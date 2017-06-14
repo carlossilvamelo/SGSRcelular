@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	<script th:src="@{/layout/jquery/jquery-3.2.0.js}"></script>
+	
+	<meta charset="UTF-8"/>
+	<style type="text/css">
+		.relatorio{
+			padding: 30px;
+			
+			box-shadow: 10px 10px 5px #888888;
+			margin-left:100px;
+			border: 2px solid rgba(10,10,10,.5);
+		}
+		.relatorio h2{
+			margin-top: 30px;
+			
+		}
+		.relatorio span{
+			padding-left:50px;
+			font-style: italic;
+    		word-wrap: break-word;
+		}
+		section h1{
+			padding-top:20px;
+			text-align:center;
+			
+		}
+	</style>
+<title>Informações do serviço</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+	<h1> Informações do serviço </h1>
+	<div class="col-md-push-1 col-md-8 relatorio">
+	
+				
+			<h2> Celular:</h2>
+			<span th:text="${servico.celular.marcaModelo.marca}"></span>
+			
+			<h2> descrição do serviço:</h2>
+			<span th:text="${servico.descricao}"></span>
+			
+			<h2> Data de requerimento do serviço:</h2>
+			<span th:text="${servico.dataRequerimento}"></span>
+			
+			<h2> preço da mão de obra:</h2>
+			<span th:text="${servico.orcamento.precoMaoObra}"></span>
+			
+			<h2> Desconto:</h2>
+			<span th:text="${servico.orcamento.descontoValor}"></span>
+			
+            <h2> Valor total:</h2>
+			<span th:text="${servico.orcamento.valorTotal}"></span>
+	<br/>
+	<div>
+	<label>Formas de pagamento:</label>
+	<select class="form-control" id="formasPagamento" >
+		<option value="credito">Boleto</option>
+	</select>
+	</div>
+	<a class="btn btn-primary" th:href="@{/servico/realizarPagamento(id=${servico.id})}"> Realizar pagamento</a>
+        
+	</div>
+	
+	
+							
+						
+	</section>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Pagamento</title>
+<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	<script th:src="@{/layout/jquery/jquery-3.2.0.js}"></script>
+    <style>
+        body{
+            padding-left: 20%;
+            padding-top: 30px;
+        }
+        .imagemCodigoBarra{
+            margin-left: 20%;
+        }
+        .letraMaior{
+            font-weight: bold;
+            margin-left: 40%;
+            font-size: 20px;
+        }
+        table{
+            width: 800px;
+        }
+        table td{
+            padding: 5px;
+            max-width: 100px;
+            word-break: break-all;
+            border: 1px solid black;
+        }
+       
+        
+    </style>
+
+
+</head>
+<body>
+<body>
+<div id="boleto_main">
+
+
+</div>
+<div id="boleto">
+    <div>
+        <img style="width: 300px; margin-left: 25%" src="/logo-sem-fundo.png" alt=""/>
+    </div>
+    <table >
+        <tr>
+            <td >
+                <span class="ld letraMaior">Boleto de pagamento</span>
+            </td>
+
+        </tr>
+
+    </table>
+    <table>
+        <tr>
+
+            <td style="width: 468px;">
+                <div class="titulo">Local do Pagamento</div>
+                <div class="var">Pagável em qualquer banco até a data de vencimento</div>
+            </td>
+
+            <td class="direito">
+                <div class="titulo">Vencimento</div>
+                <div class="var" >10/07/2017</div>
+            </td>
+
+        </tr>
+        <tr>
+
+            <td>
+                <div class="titulo">Cedente</div>
+                <div class="var">
+					<span th:text="${servico.loja.nome}"></span>
+				</div>
+            </td>
+
+            <td class="direito">
+                <div class="titulo">Agência / Código do Cedente</div>
+                <div class="var">85416-7/55102-xx</div>
+            </td>
+
+        </tr>
+    </table>
+    <table >
+        <tr>
+
+            <td style="width:103px;">
+                <div class="titulo">Data  Documento</div>
+                <div class="var">
+				<span >14/06/2017</span>
+</div>
+            </td>
+
+            <td style="width:133px;">
+                <div class="titulo">Número Documento</div>
+                <div class="var">231546781</div>
+            </td>
+
+
+
+        </tr>
+    </table>
+
+    <table >
+        <tr>
+
+            <td rowspan="10" valign="top">
+                <div class="titulo" style="margin-bottom:18px;">Descrição do pedido</div>
+                <div class="var">
+				<span th:text="${servico.descricao}"></span>
+		</div>
+            </td>
+
+            <td >
+                <div class="titulo">(-) Desconto / Abatimento</div>
+                <div class="var">
+                	<span th:text="${servico.orcamento.descontoValor}"></span>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+
+            <td class="direito">
+                <div class="titulo">(-) Outras Deduções</div>
+                <div class="var"></div>
+            </td>
+
+        </tr>
+        <tr>
+
+            <td class="direito">
+                <div class="titulo">(+) Multa / Mora</div>
+                <div class="var"></div>
+            </td>
+
+        </tr>
+        
+        <tr>
+
+            <td class="direito">
+                <div class="titulo">(=) Valor Cobrado</div>
+                <div class="var">
+				<span th:text="${servico.orcamento.valorTotal}"></span>
+				</div>
+            </td>
+
+        </tr>
+    </table>
+    <br/>
+    <table>
+        <tr>
+            <td style="width: 417px; height:62px;">
+                <img class="imagemCodigoBarra" src="/codigobarras.png" alt=""/>
+            </td>
+
+
+
+        </tr>
+    </table>
+    <a class="btn btn-primary botao" th:href="@{/servico/processar(id=${servico.id})}"> Imprimir e voltar</a>
+      
+</div>
+</body>
+</body>
+</html>
