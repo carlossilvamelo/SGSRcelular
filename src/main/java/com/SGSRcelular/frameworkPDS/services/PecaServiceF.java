@@ -32,7 +32,24 @@ public class PecaServiceF implements IPecaService{
 
 	@Override
 	public Peca buscarPorId(Long id) {
-		return pecaRepository.getOne(id);
+		return pecaRepository.findOne(id);
+	}
+	
+	public List<Peca> listarPecas(){
+		
+		return pecaRepository.findAll();
+		
+	}
+
+	public void cadastrarPeca(Peca peca){
+		
+		pecaRepository.save(peca);
+	}
+
+
+	@Override
+	public Peca buscarPorNome(String nome) {
+		return pecaRepository.buscarPorNome(nome);
 	}
 
 	

@@ -80,8 +80,11 @@ public class ServicoController {
 			Loja lojaServico = lojaService.buscarPorId(servico.getLoja().getId());
 			Celular celularServico = servico.getCelular();
 			if(celularServico != null){
+				
 				celularServico = celularService.buscarPorId(servico.getCelular().getId());
+				
 				if(lojaServico != null && celularServico != null){
+					
 					servico.setStatus(EnumStatus.PRE_DIAGNOSTICO);
 					servico.setLoja(lojaServico);
 					servico.setCelular(celularServico);

@@ -83,6 +83,13 @@
 	                  <div  th:if="${lista.status.name() == 'AUTORIZACAO_PENDENTE'}">	
 	                  	<a  class="btn btn-default botaoAcompanhar" th:href="@{../servico/aprovarServico(id=${lista.id})}"> Autorizar serviço</a>
 	                  </div>
+	                  <div  th:if="${lista.orcamento !=null}">
+	   					<div th:if="${lista.orcamento.pago == false}">
+	   					<a  class="btn btn-default botaoAcompanhar" th:href="@{../servico/visualizarPagamento(id=${lista.id})}"> Realizar pagamento</a>
+	                  
+	   					</div>	
+	                  	</div>
+	                  
 	                  <div  th:if="${lista.status.name() == 'PRE_DIAGNOSTICO'}">	
 	                  	<a  class="btn btn-default botaoAcompanhar" th:href="@{../servico/aprovarServico(id=${lista.id})}"> Aprovar serviço</a>
 	                  </div>

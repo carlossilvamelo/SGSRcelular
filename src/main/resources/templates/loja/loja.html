@@ -65,7 +65,8 @@
                   <td th:text="${lista.celular.marcaModelo.marca}"></td>
                   <td th:text="${lista.descricao}" ></td>
                   <td th:text="${lista.status}"></td>
-                  
+                   <td><a th:href="@{../loja/gerarOrcamento(id=${lista.id})}">Gerar Orçamento</a></td>
+                   
                   <td>
 	                  <div  th:if="${lista.status.name() == 'PRE_DIAGNOSTICO'}">	
 	                  	<a  class="btn btn-default botaoAcompanhar" th:href="@{../servico/vistoriaPendente(id=${lista.id})}"> Vistoria pendente</a>

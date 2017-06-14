@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import com.SGSRcelular.frameworkPDS.models.CheckIn;
 import com.SGSRcelular.frameworkPDS.models.Cliente;
 import com.SGSRcelular.frameworkPDS.models.Loja;
+import com.SGSRcelular.frameworkPDS.models.Orcamento;
 import com.SGSRcelular.enumeracoes.EnumStatus;
 import com.SGSRcelular.frameworkPDS.models.Celular;
 import com.SGSRcelular.frameworkPDS.models.Servico;
 import com.SGSRcelular.frameworkPDS.repository.CheckInRepository;
+import com.SGSRcelular.frameworkPDS.repository.OrcamentoRepository;
 import com.SGSRcelular.frameworkPDS.repository.ServicoRepository;
 
 
@@ -21,7 +23,8 @@ public class ServicoService implements IServicoService{
 	private ServicoRepository servicoRepository;
 	@Autowired
 	private CheckInRepository checkInRepository;
-
+	@Autowired
+	private OrcamentoRepository orcamentoRepository;
 	
 	/**
 	 * Requisito gera uma atualização do status do serviço
@@ -156,7 +159,11 @@ public class ServicoService implements IServicoService{
 		inserir(servicoAtualizado);
 	}
 	
-
+	public void inserirOrcamento(Orcamento orcamento){
+		
+		orcamentoRepository.save(orcamento);
+	
+	}
 	
 
 }

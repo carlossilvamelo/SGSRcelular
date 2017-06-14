@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadraoLoja">
+	
+<head>
+		
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	<script th:src="@{/layout/jquery/jquery-3.2.0.js}"></script>
+	
+	<meta charset="UTF-8"/>
+	<title>Oficina</title>
+	
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+	
+			$('.btn-success').click(function(){
+					//busca o a tr que contém o botão que foi clicado
+					//pega o indice da linha que o botão foi clicado
+					var teste = this.closest('tr').rowIndex;
+					
+					var peca = [];
+					
+					//percorre todas as tr até encontrar a que fi clicada
+					 $('.pecas').each(function(i, val) {
+
+						//pega os valores para inserir no objeto	
+						 var nome = val.children[1].innerHTML;
+						 var preco = val.children[2].innerHTML;
+					
+						if(i === (teste-1)){
+							peca.push(nome + ";");
+							peca.push(preco);
+							
+						}
+							
+					});
+						
+					alert(peca.length);
+					
+					$.ajax({
+						
+						url: '/loja/cadastrarPeca',
+						data:{'peca': JSON.stringify(peca)},
+						dataType: "json",
+						success: function(data){
+
+							$("#msg").html() = data;
+						}
+				 });
+					
+			});
+		});
+		
+	</script>
+	<!--
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+	
+			$("#addPeca").click(function(){
+
+				var peca = $("#peca").html();
+				alert(peca);
+				
+			});
+		});
+	
+
+	</script>
+	-->
+
+</head>
+<body>
+	<section layout:fragment="conteudo">
+	<div class="col-sm-9 col-md-10">
+		<h1><span th:text="${session.usuario.nome}"></span></h1>
+	</div>
+	<div class="row"></div>
+	<h2 class="col-sm-9 col-md-10 sub-header">Estoque de peças</h2>
+	<div>
+		<span id="msg"></span>
+	</div>
+	<div class="row"></div>
+	<div class="table-responsive">
+         
+         <div>
+         <form method="get" action="../loja/buscarPeca">
+				<span>Nome da peça:</span>
+				<input type="text" id="peca" name="peca"/>
+				<span>Site:</span>
+				<input type="text" id="site" name="site"/>
+				
+				<div>
+					<input class="btn btn-primary" type="submit" value="buscar"/>
+				</div>
+				
+			</form>
+			</div>
+			
+			<div th:if="${listaPeca != null}">
+				<table class="table table-striped">
+	              <thead>
+	                <tr>
+	                  <th>Ordem</th>
+	                  <th>Nome</th>
+	                  <th>Preco</th>
+	                  <th>Descrição</th>
+	                  <th></th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	              	<tr class="pecas" th:each="peca,iterationStatus  : ${listaPeca}">
+	              		
+	              		<td th:text="${iterationStatus.count}"></td>
+	              		<td th:text="${peca.nome}"></td>
+	              		<td th:text="${peca.preco}"></td>
+	              		<td th:text="${peca.descricao}"></td>
+	              		<td>
+	              			<button title="ADD" class="btn btn-success btn-xs">
+	              				<label class="glyphicon glyphicon-plus"></label>
+	              			</button>
+	              		</td>
+						
+	              	</tr>
+	              
+	              </tbody>
+	            </table>
+            </div>
+    </div>
+	
+	</section>
+</body>
+</html>

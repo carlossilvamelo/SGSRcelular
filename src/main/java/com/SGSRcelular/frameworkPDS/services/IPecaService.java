@@ -13,4 +13,5 @@ public interface IPecaService {
 	public void deletar(Peca peca);
 	public List<Peca> buscarTodos();
 	public Peca buscarPorId(Long id);
+	public Peca buscarPorNome(String nome);
 }

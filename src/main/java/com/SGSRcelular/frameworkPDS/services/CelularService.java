@@ -80,7 +80,7 @@ public class CelularService implements ICelularService{
 		// TODO Auto-generated method stub
 		return modeloRepository.buscarMarcas();
 	}
-
+	
 	
 	
 

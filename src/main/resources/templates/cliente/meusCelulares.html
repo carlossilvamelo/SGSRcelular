@@ -89,7 +89,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="celular : ${cliente.celulares}">
-	
+								<td><span id="id" th:text="${celular.id}"></span></td>
 								<td th:text="${celular.cor}"></td>
 								<td th:if="${celular.marcaModelo != null}" ><span th:text="${celular.marcaModelo.marca}"></span></td>
 								<td th:if="${celular.marcaModelo != null}" ><span th:text="${celular.marcaModelo.modelo}"></span></td>

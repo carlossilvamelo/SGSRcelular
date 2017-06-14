@@ -119,4 +119,20 @@ public class HomeController {
 	}
 	
 	
+	@GetMapping("/sair")
+	public ModelAndView sair( HttpSession session){
+		
+		
+		if(session.getAttribute("loja") != null){
+			
+			session.setAttribute("loja", null);
+		}else{
+			
+			session.setAttribute("usuario", null);
+		}
+		
+		ModelAndView mv = new ModelAndView("index");
+		
+		return mv;
+	}
 }

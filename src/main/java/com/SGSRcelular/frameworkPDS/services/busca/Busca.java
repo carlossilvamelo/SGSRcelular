@@ -30,13 +30,13 @@ public abstract class Busca {
 	
 
 	
-	public final List<Peca> buscarPecaMaisAvaliado(String idValor, String idProduto) {
+	public final List<Peca> buscarPecaMaisAvaliado() {
 
 		return maisAvaliado(buscaPeca());
 	}
 	
 	
-	public final List<Peca> buscarPecaMenorPreco(String idValor, String idProduto){
+	public final List<Peca> buscarPecaMenorPreco(){
 
 		return menorPreco(buscaPeca());
 	}
@@ -52,10 +52,7 @@ public abstract class Busca {
 	}
 
 	
-	public List<Peca> buscaPeca(){
-		
-		return pecas;	
-	}
+	public abstract List<Peca> buscaPeca();
 
 	
 

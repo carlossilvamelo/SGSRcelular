@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadraoLoja">
+	
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/custom.css}"/>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	<script th:src="@{/layout/jquery/jquery-3.2.0.js}"></script>
+	
+	<meta charset="UTF-8"/>
+<title>Oficina</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+	<div class="col-sm-9 col-md-10">
+		<h1><span th:text="${session.usuario.nome}"></span></h1>
+	</div>
+	<div class="row"></div>
+	<h2 class="col-sm-9 col-md-10 sub-header">Estoque de peças</h2>
+	<div class="row"></div>
+	<div class="table-responsive">
+            
+            <div>
+            	<a th:href="@{../loja/novaPeca}">nova peça</a>
+            </div>
+            
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Preco</th>
+                  <th>Quantidade</th>
+                  <th>Descrição</th>
+                </tr>
+              </thead>
+              	<tr th:each="peca : ${listaPeca}">
+              		<td><span id="nome" th:text="${peca.nome}"></span></td>
+              		<td><span id="preco" th:text="${peca.preco}"></span></td>
+              		<td><span id="quantidade" th:text="${peca.quantidade}"></span></td>
+              		<td><span id="descricao" th:text="${peca.descricao}"></span></td>
+              	</tr>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+	
+	</section>
+</body>
+</html>

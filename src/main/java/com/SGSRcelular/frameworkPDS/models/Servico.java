@@ -65,8 +65,8 @@ public class Servico implements Serializable{
 	
 	private String notaFiscal;
 	
-	@OneToMany(mappedBy="servico",fetch=FetchType.LAZY, cascade={CascadeType.REMOVE, CascadeType.PERSIST})
-	private List<Orcamento> orcamentos;
+	@OneToOne(mappedBy="servico",fetch=FetchType.LAZY, cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+	private Orcamento orcamento;
 
 	private String descricao;
 	private String obs;
@@ -131,9 +131,7 @@ public class Servico implements Serializable{
 		this.notaFiscal = notaFiscal;
 	}
 
-	public List<Orcamento> getOrcamentos() {
-		return orcamentos;
-	}
+	
 
 	public Loja getLoja() {
 		return loja;
@@ -163,8 +161,12 @@ public class Servico implements Serializable{
 		return serialVersionUID;
 	}
 
-	public void setOrcamentos(List<Orcamento> orcamentos) {
-		this.orcamentos = orcamentos;
+	public Orcamento getOrcamento() {
+		return orcamento;
+	}
+	
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
 	}
 
 	public String getDescricao() {

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+
 @Entity
 public class Orcamento implements Serializable{
 	
@@ -21,17 +22,30 @@ public class Orcamento implements Serializable{
 	private static final long serialVersionUID = -3329162767984686645L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_orcamento")
 	private Long id;
 	private Double precoMaoObra;
 	private String obs;
+	private Double valorTotal;
 	private Double valorAdicional;
 	private Double descontoValor;
 	private Integer descontoPorcentagem;
+	private boolean pago = false;
+	@OneToMany
+	private List<Peca> pecas;
+	@ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.MERGE})
+	@JoinColumn(name="id_servico")
+	private Servico servico;
+
 	
 	public Orcamento() {
-		// TODO Auto-generated constructor stub
+		pago = false;
+		valorTotal = 0.0;
+		valorAdicional = 0.0;
+		descontoValor = 0.0;
+		descontoPorcentagem = 0;
+		precoMaoObra = 0.0;
 	}
 	
 	
@@ -76,12 +90,6 @@ public class Orcamento implements Serializable{
 		this.servico = servico;
 	}
 
-	@OneToMany(mappedBy="orcamento",fetch=FetchType.LAZY, cascade= CascadeType.ALL)
-	private List<Peca> pecasTroca;
-	
-	@ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.MERGE})
-	@JoinColumn(name="id_servico")
-	private Servico servico;
 
 	public Double getPrecoMaoObra() {
 		return precoMaoObra;
@@ -91,20 +99,6 @@ public class Orcamento implements Serializable{
 		this.precoMaoObra = precoMaoObra;
 	}
 
-	public List<Peca> getPecasTroca() {
-		return pecasTroca;
-	}
-
-	private void setPecasTroca(List<Peca> pecasTroca) {
-		this.pecasTroca = pecasTroca;
-	}
-	
-	public void addPeca(Peca peca){
-		
-		setPecasTroca(new ArrayList<Peca>());
-		pecasTroca.add(peca);
-	}
-
 	public String getObs() {
 		return obs;
 	}
@@ -112,5 +106,40 @@ public class Orcamento implements Serializable{
 	public void setObs(String obs) {
 		this.obs = obs;
 	}
+
+
+	public List<Peca> getPecas() {
+		return pecas;
+	}
+
+
+	public void setPecas() {
+		this.pecas =new ArrayList<Peca>();
+	}
 	
+	public void addPeca(Peca peca){
+		
+		
+		pecas.add(peca);
+	}
+
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+
+	public boolean getPago() {
+		return pago;
+	}
+
+
+	public void setPago(boolean pago) {
+		this.pago = pago;
+	}
 }
